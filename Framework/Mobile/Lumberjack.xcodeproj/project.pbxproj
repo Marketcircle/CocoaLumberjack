@@ -16,6 +16,8 @@
 		2A37F9F318E37536009FAAA7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F9F218E37536009FAAA7 /* ViewController.m */; };
 		2A37F9F518E37536009FAAA7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F9F418E37536009FAAA7 /* Images.xcassets */; };
 		2A37FA0F18E375D8009FAAA7 /* libCocoaLumberjack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A37F97718E37270009FAAA7 /* libCocoaLumberjack.a */; };
+		AFAF63AD1A7816D200419954 /* CLIColor.h in Headers */ = {isa = PBXBuildFile; fileRef = AFAF63AB1A7816D200419954 /* CLIColor.h */; };
+		AFAF63AE1A7816D200419954 /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAF63AC1A7816D200419954 /* CLIColor.m */; };
 		DA9C209B192A04E100AB7171 /* Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9C209A192A04E100AB7171 /* Formatter.m */; };
 		DA9C20B0192A0CB500AB7171 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9C209D192A0CB500AB7171 /* DDAbstractDatabaseLogger.m */; };
 		DA9C20B1192A0CB500AB7171 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9C209F192A0CB500AB7171 /* DDASLLogCapture.m */; };
@@ -70,6 +72,8 @@
 		2A37F9FB18E37536009FAAA7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		55CCBEF719BA64B200957A39 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		55CCBEF819BA64B200957A39 /* Lumberjack-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Lumberjack-Info.plist"; path = "../../Desktop/Lumberjack/Lumberjack-Info.plist"; sourceTree = "<group>"; };
+		AFAF63AB1A7816D200419954 /* CLIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLIColor.h; path = CLI/CLIColor.h; sourceTree = "<group>"; };
+		AFAF63AC1A7816D200419954 /* CLIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLIColor.m; path = CLI/CLIColor.m; sourceTree = "<group>"; };
 		DA9C2099192A04E100AB7171 /* Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Formatter.h; sourceTree = "<group>"; };
 		DA9C209A192A04E100AB7171 /* Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Formatter.m; sourceTree = "<group>"; };
 		DA9C209C192A0CB500AB7171 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
@@ -145,6 +149,7 @@
 		2A37F97C18E37270009FAAA7 /* Lumberjack */ = {
 			isa = PBXGroup;
 			children = (
+				AFAF63AF1A7816D600419954 /* CLI */,
 				E5D89BAA199474A900C180CF /* CocoaLumberjack.h */,
 				E5D89BAC199474A900C180CF /* DDLogMacros.h */,
 				E5D89BAB199474A900C180CF /* DDAssertMacros.h */,
@@ -212,6 +217,15 @@
 			path = LibTestTests;
 			sourceTree = "<group>";
 		};
+		AFAF63AF1A7816D600419954 /* CLI */ = {
+			isa = PBXGroup;
+			children = (
+				AFAF63AB1A7816D200419954 /* CLIColor.h */,
+				AFAF63AC1A7816D200419954 /* CLIColor.m */,
+			);
+			name = CLI;
+			sourceTree = "<group>";
+		};
 		DA9C20A9192A0CB500AB7171 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,6 +249,7 @@
 				E5CEB3721994971500EDC36E /* CocoaLumberjack.h in Headers */,
 				E5CEB3731994971500EDC36E /* DDLogMacros.h in Headers */,
 				E5CEB3741994971500EDC36E /* DDAssertMacros.h in Headers */,
+				AFAF63AD1A7816D200419954 /* CLIColor.h in Headers */,
 				E5CEB3751994971500EDC36E /* DDLog+LOGV.h in Headers */,
 				E5CEB3761994971500EDC36E /* DDAbstractDatabaseLogger.h in Headers */,
 				E5CEB3771994971500EDC36E /* DDASLLogCapture.h in Headers */,
@@ -336,6 +351,7 @@
 				DA9C20B5192A0CB500AB7171 /* DDTTYLogger.m in Sources */,
 				DA9C20B8192A0CB500AB7171 /* DDMultiFormatter.m in Sources */,
 				DA9C20B0192A0CB500AB7171 /* DDAbstractDatabaseLogger.m in Sources */,
+				AFAF63AE1A7816D200419954 /* CLIColor.m in Sources */,
 				DA9C20B2192A0CB500AB7171 /* DDASLLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -23,6 +23,10 @@
 		55CCBF0619BA679200957A39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CCBF0519BA679200957A39 /* AppDelegate.swift */; };
 		55CCBF0819BA679200957A39 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55CCBF0719BA679200957A39 /* Images.xcassets */; };
 		55CCBF2019BA67CB00957A39 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCB3185114EB418E001CFBEE /* CocoaLumberjack.framework */; };
+		AFAF63A81A78115800419954 /* CLIColor.h in Headers */ = {isa = PBXBuildFile; fileRef = AFAF63A61A78115800419954 /* CLIColor.h */; };
+		AFAF63A91A78115800419954 /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAF63A71A78115800419954 /* CLIColor.m */; };
+		AFAF63B01A7816F000419954 /* CLIColor.h in Headers */ = {isa = PBXBuildFile; fileRef = AFAF63A61A78115800419954 /* CLIColor.h */; };
+		AFAF63B11A7816F300419954 /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAF63A71A78115800419954 /* CLIColor.m */; };
 		DA9C20D1192A0E0000AB7171 /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = DA9C20BD192A0E0000AB7171 /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA9C20D2192A0E0000AB7171 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9C20BE192A0E0000AB7171 /* DDAbstractDatabaseLogger.m */; };
 		DA9C20D3192A0E0000AB7171 /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = DA9C20BF192A0E0000AB7171 /* DDASLLogCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -140,6 +144,8 @@
 		55CCBF0219BA679200957A39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55CCBF0519BA679200957A39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55CCBF0719BA679200957A39 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		AFAF63A61A78115800419954 /* CLIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLIColor.h; path = CLI/CLIColor.h; sourceTree = "<group>"; };
+		AFAF63A71A78115800419954 /* CLIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLIColor.m; path = CLI/CLIColor.m; sourceTree = "<group>"; };
 		DA9C20BD192A0E0000AB7171 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		DA9C20BE192A0E0000AB7171 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
 		DA9C20BF192A0E0000AB7171 /* DDASLLogCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogCapture.h; sourceTree = "<group>"; };
@@ -264,6 +270,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		AFAF63AA1A78115B00419954 /* CLI */ = {
+			isa = PBXGroup;
+			children = (
+				AFAF63A61A78115800419954 /* CLIColor.h */,
+				AFAF63A71A78115800419954 /* CLIColor.m */,
+			);
+			name = CLI;
+			sourceTree = "<group>";
+		};
 		DA9C20CA192A0E0000AB7171 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,6 +337,7 @@
 		DCB3185A14EB418E001CFBEE /* Lumberjack */ = {
 			isa = PBXGroup;
 			children = (
+				AFAF63AA1A78115B00419954 /* CLI */,
 				E5D89BA41994749300C180CF /* CocoaLumberjack.h */,
 				55BCB5C619D4BB6E0096E784 /* CocoaLumberjack.swift */,
 				E5D89BA61994749300C180CF /* DDLogMacros.h */,
@@ -401,6 +417,7 @@
 				DA9C20D5192A0E0000AB7171 /* DDASLLogger.h in Headers */,
 				DA9C20E2192A0E0000AB7171 /* DDMultiFormatter.h in Headers */,
 				E5D89BA71994749300C180CF /* CocoaLumberjack.h in Headers */,
+				AFAF63A81A78115800419954 /* CLIColor.h in Headers */,
 				DA9C20D7192A0E0000AB7171 /* DDFileLogger.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,6 +429,7 @@
 				E58078DB1A01C92F008819CA /* DDContextFilterLogFormatter.h in Headers */,
 				E58078DC1A01C92F008819CA /* DDAssertMacros.h in Headers */,
 				E58078DD1A01C92F008819CA /* DDASLLogCapture.h in Headers */,
+				AFAF63B01A7816F000419954 /* CLIColor.h in Headers */,
 				E58078DE1A01C92F008819CA /* DDDispatchQueueLogFormatter.h in Headers */,
 				E58078DF1A01C92F008819CA /* DDLog+LOGV.h in Headers */,
 				E58078E01A01C92F008819CA /* DDAbstractDatabaseLogger.h in Headers */,
@@ -635,6 +653,7 @@
 				DA9C20DD192A0E0000AB7171 /* DDTTYLogger.m in Sources */,
 				DA9C20E3192A0E0000AB7171 /* DDMultiFormatter.m in Sources */,
 				DA9C20D2192A0E0000AB7171 /* DDAbstractDatabaseLogger.m in Sources */,
+				AFAF63A91A78115800419954 /* CLIColor.m in Sources */,
 				DA9C20D6192A0E0000AB7171 /* DDASLLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -652,6 +671,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFAF63B11A7816F300419954 /* CLIColor.m in Sources */,
 				E58078FC1A01C975008819CA /* CocoaLumberjack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
