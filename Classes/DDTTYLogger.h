@@ -95,7 +95,7 @@
 
 /**
  * When using a custom formatter you can set the logMessage method not to append
- * '\n' character after each output. This allows for some greater flexibility with
+ * '\\n' character after each output. This allows for some greater flexibility with
  * custom formatters. Default value is YES.
  **/
 
