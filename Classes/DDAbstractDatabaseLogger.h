@@ -20,6 +20,9 @@
 
 #import "DDLog.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored  "-Wobjc-interface-ivars"
+
 /**
  * This class provides an abstract implementation of a database logger.
  *
@@ -110,3 +113,5 @@
 - (void)deleteOldLogEntries;
 
 @end
+
+#pragma clang diagnostic pop

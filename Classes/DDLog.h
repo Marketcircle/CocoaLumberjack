@@ -15,6 +15,9 @@
 
 #import <Foundation/Foundation.h>
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored  "-Wobjc-interface-ivars"
+
 // Enable 1.9.x legacy macros if imported directly
 #ifndef DD_LEGACY_MACROS
     #define DD_LEGACY_MACROS 1
@@ -543,3 +546,4 @@ typedef NS_OPTIONS(NSInteger, DDLogMessageOptions) {
 
 @end
 
+#pragma clang diagnostic pop
