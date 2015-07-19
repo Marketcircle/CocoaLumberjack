@@ -18,7 +18,7 @@
 		18F3BF8B1A81DF5600692297 /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = E5D89BA51994749300C180CF /* DDAssertMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		18F3BF8C1A81DF5600692297 /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = DA9C20BF192A0E0000AB7171 /* DDASLLogCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		18F3BF8D1A81DF5600692297 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = DA9C20CD192A0E0000AB7171 /* DDDispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		18F3BF8E1A81DF5600692297 /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = DA9C20C7192A0E0000AB7171 /* DDLog+LOGV.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		18F3BF8E1A81DF5600692297 /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = DA9C20C7192A0E0000AB7171 /* DDLog+LOGV.h */; };
 		18F3BF8F1A81DF5600692297 /* DDLegacyMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = E58079621A032F92008819CA /* DDLegacyMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		18F3BF901A81DF5600692297 /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = DA9C20BD192A0E0000AB7171 /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		18F3BF911A81DF5600692297 /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = E5D89BA61994749300C180CF /* DDLogMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -77,7 +77,7 @@
 		DA9C20D8192A0E0000AB7171 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9C20C4192A0E0000AB7171 /* DDFileLogger.m */; };
 		DA9C20D9192A0E0000AB7171 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = DA9C20C5192A0E0000AB7171 /* DDLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA9C20DA192A0E0000AB7171 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9C20C6192A0E0000AB7171 /* DDLog.m */; };
-		DA9C20DB192A0E0000AB7171 /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = DA9C20C7192A0E0000AB7171 /* DDLog+LOGV.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DA9C20DB192A0E0000AB7171 /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = DA9C20C7192A0E0000AB7171 /* DDLog+LOGV.h */; };
 		DA9C20DC192A0E0000AB7171 /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = DA9C20C8192A0E0000AB7171 /* DDTTYLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA9C20DD192A0E0000AB7171 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9C20C9192A0E0000AB7171 /* DDTTYLogger.m */; };
 		DA9C20DE192A0E0000AB7171 /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = DA9C20CB192A0E0000AB7171 /* DDContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
