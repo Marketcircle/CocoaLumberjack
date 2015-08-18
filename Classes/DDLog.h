@@ -100,20 +100,22 @@
  **/
 
 typedef NS_OPTIONS(NSUInteger, DDLogFlag) {
-    DDLogFlagError      = (1 << 0), // 0...00001
-    DDLogFlagWarning    = (1 << 1), // 0...00010
-    DDLogFlagInfo       = (1 << 2), // 0...00100
-    DDLogFlagDebug      = (1 << 3), // 0...01000
-    DDLogFlagVerbose    = (1 << 4)  // 0...10000
+    DDLogFlagCritical   = (1 << 2), // 0...00000100
+    DDLogFlagError      = (1 << 3), // 0...00001000
+    DDLogFlagWarning    = (1 << 4), // 0...00010000
+    DDLogFlagInfo       = (1 << 5), // 0...00100000
+    DDLogFlagDebug      = (1 << 6), // 0...01000000
+    DDLogFlagVerbose    = (1 << 7)  // 0...10000000
 };
 
 typedef NS_ENUM(NSUInteger, DDLogLevel) {
     DDLogLevelOff       = 0,
-    DDLogLevelError     = (DDLogFlagError),                       // 0...00001
-    DDLogLevelWarning   = (DDLogLevelError   | DDLogFlagWarning), // 0...00011
-    DDLogLevelInfo      = (DDLogLevelWarning | DDLogFlagInfo),    // 0...00111
-    DDLogLevelDebug     = (DDLogLevelInfo    | DDLogFlagDebug),   // 0...01111
-    DDLogLevelVerbose   = (DDLogLevelDebug   | DDLogFlagVerbose), // 0...11111
+    DDLogLevelCritical  = (DDLogFlagCritical),                    // 0...00000100
+    DDLogLevelError     = (DDLogLevelCritical| DDLogFlagError),   // 0...00001100
+    DDLogLevelWarning   = (DDLogLevelError   | DDLogFlagWarning), // 0...00011100
+    DDLogLevelInfo      = (DDLogLevelWarning | DDLogFlagInfo),    // 0...00111100
+    DDLogLevelDebug     = (DDLogLevelInfo    | DDLogFlagDebug),   // 0...01111100
+    DDLogLevelVerbose   = (DDLogLevelDebug   | DDLogFlagVerbose), // 0...11111100
     DDLogLevelAll       = NSUIntegerMax                           // 1111....11111 (DDLogLevelVerbose plus any other flags)
 };
 
@@ -153,6 +155,9 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy);
 
 + (dispatch_queue_t)loggingQueue;
 
++ (void)logMessage:(DDLogMessage *)logMessage;
++ (void)asynchronouslyLogMessage:(DDLogMessage *)logMessage;
+
 /**
  * Logging Primitive.
  *
@@ -160,15 +165,15 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy);
  * It is suggested you stick with the macros as they're easier to use.
  **/
 
-+ (void)log:(BOOL)asynchronous
-      level:(DDLogLevel)level
-       flag:(DDLogFlag)flag
++ (void)log:(DDLogFlag)flag
     context:(NSInteger)context
-       file:(const char *)file
-   function:(const char *)function
-       line:(NSUInteger)line
         tag:(id)tag
-     format:(NSString *)format, ... NS_FORMAT_FUNCTION(9,10);
+     format:(NSString *)format, ... NS_FORMAT_FUNCTION(4,5);
+
++ (void)asyncLog:(DDLogFlag)flag
+         context:(NSInteger)context
+             tag:(id)tag
+          format:(NSString *)format, ... NS_FORMAT_FUNCTION(4,5);
 
 /**
  * Logging Primitive.
@@ -176,38 +181,31 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy);
  * This method can be used if you have a prepared va_list.
  **/
 
-+ (void)log:(BOOL)asynchronous
-      level:(DDLogLevel)level
-       flag:(DDLogFlag)flag
++ (void)log:(DDLogFlag)flag
     context:(NSInteger)context
-       file:(const char *)file
-   function:(const char *)function
-       line:(NSUInteger)line
         tag:(id)tag
      format:(NSString *)format
        args:(va_list)argList;
 
++ (void)asyncLog:(DDLogFlag)flag
+         context:(NSInteger)context
+             tag:(id)tag
+          format:(NSString *)format
+            args:(va_list)argList;
+
 /**
  * Logging Primitive.
  **/
-+ (void)log:(BOOL)asynchronous
++ (void)log:(DDLogFlag)flag
     message:(NSString *)message
-      level:(DDLogLevel)level
-       flag:(DDLogFlag)flag
     context:(NSInteger)context
-       file:(const char *)file
-   function:(const char *)function
-       line:(NSUInteger)line
         tag:(id)tag;
 
-/**
- * Logging Primitive.
- *
- * This method can be used if you manualy prepared DDLogMessage.
- **/
++ (void)asyncLog:(DDLogFlag)flag
+         message:(NSString *)message
+         context:(NSInteger)context
+             tag:(id)tag;
 
-+ (void)log:(BOOL)asynchronous
-    message:(DDLogMessage *)logMessage;
 
 /**
  * Since logging can be asynchronous, there may be times when you want to flush the logs.
@@ -432,11 +430,6 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy);
     #define NS_DESIGNATED_INITIALIZER
 #endif
 
-typedef NS_OPTIONS(NSInteger, DDLogMessageOptions) {
-    DDLogMessageCopyFile     = 1 << 0,
-    DDLogMessageCopyFunction = 1 << 1
-};
-
 /**
  * The DDLogMessage class encapsulates information about the log message.
  * If you write custom loggers or formatters, you will be dealing with objects of this class.
@@ -447,18 +440,10 @@ typedef NS_OPTIONS(NSInteger, DDLogMessageOptions) {
     // Direct accessors to be used only for performance
     @public
     NSString *_message;
-    DDLogLevel _level;
     DDLogFlag _flag;
     NSInteger _context;
-    NSString *_file;
-    NSString *_fileName;
-    NSString *_function;
-    NSUInteger _line;
     id _tag;
-    DDLogMessageOptions _options;
     NSDate *_timestamp;
-    NSString *_threadID;
-    NSString *_threadName;
     NSString *_queueLabel;
 }
 
@@ -478,32 +463,19 @@ typedef NS_OPTIONS(NSInteger, DDLogMessageOptions) {
  * Options is a bitmask which supports DDLogMessageCopyFile and DDLogMessageCopyFunction.
  **/
 - (instancetype)initWithMessage:(NSString *)message
-                          level:(DDLogLevel)level
                            flag:(DDLogFlag)flag
                         context:(NSInteger)context
-                           file:(NSString *)file
-                       function:(NSString *)function
-                           line:(NSUInteger)line
                             tag:(id)tag
-                        options:(DDLogMessageOptions)options
-                      timestamp:(NSDate *)timestamp NS_DESIGNATED_INITIALIZER;
+    NS_DESIGNATED_INITIALIZER;
 
 /**
  * Read-only properties
  **/
 @property (readonly, nonatomic) NSString *message;
-@property (readonly, nonatomic) DDLogLevel level;
 @property (readonly, nonatomic) DDLogFlag flag;
 @property (readonly, nonatomic) NSInteger context;
-@property (readonly, nonatomic) NSString *file;
-@property (readonly, nonatomic) NSString *fileName;
-@property (readonly, nonatomic) NSString *function;
-@property (readonly, nonatomic) NSUInteger line;
 @property (readonly, nonatomic) id tag;
-@property (readonly, nonatomic) DDLogMessageOptions options;
 @property (readonly, nonatomic) NSDate *timestamp;
-@property (readonly, nonatomic) NSString *threadID; // ID as it appears in NSLog calculated from the machThreadID
-@property (readonly, nonatomic) NSString *threadName;
 @property (readonly, nonatomic) NSString *queueLabel;
 
 @end

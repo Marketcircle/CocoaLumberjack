@@ -14,6 +14,7 @@
 //   prior written permission of Deusty, LLC.
 
 #import "DDASLLogger.h"
+#import "DDASLLogCapture.h"
 #import <asl.h>
 
 #if !__has_feature(objc_arc)
@@ -62,7 +63,7 @@ static DDASLLogger *sharedInstance;
 
 - (void)logMessage:(DDLogMessage *)logMessage {
     // Skip captured log messages
-    if ([logMessage->_fileName isEqualToString:@"DDASLLogCapture"]) {
+    if (logMessage->_context == DDASLLogCaptureContext) {
         return;
     }
 

@@ -27,6 +27,8 @@
 #include <notify_keys.h>
 #include <sys/time.h>
 
+const NSInteger DDASLLogCaptureContext = -1;
+
 static BOOL _cancel = YES;
 static DDLogLevel _captureLevel = DDLogLevelVerbose;
 
@@ -145,17 +147,15 @@ static void (*dd_asl_release)(aslresponse obj);
     NSDate *timeStamp = [NSDate dateWithTimeIntervalSince1970:totalSeconds];
 
     DDLogMessage *logMessage = [[DDLogMessage alloc]initWithMessage:message
-                                                              level:_captureLevel
                                                                flag:flag
-                                                            context:0
-                                                               file:@"DDASLLogCapture"
-                                                           function:0
-                                                               line:0
-                                                                tag:nil
-                                                            options:0
-                                                          timestamp:timeStamp];
-    
-    [DDLog log:async message:logMessage];
+                                                            context:DDASLLogCaptureContext
+                                                                tag:nil];
+
+    logMessage->_timestamp = timeStamp;
+    if (async)
+        [DDLog asynchronouslyLogMessage:logMessage];
+    else
+        [DDLog logMessage:logMessage];
 }
 
 + (void)captureAslLogs {

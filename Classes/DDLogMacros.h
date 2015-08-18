@@ -38,16 +38,17 @@
  * This is the single macro that all other macros below compile into.
  * This big multiline macro makes all the other macros easier to read.
  **/
-#define LOG_MACRO(isAsynchronous, lvl, flg, ctx, atag, fnct, frmt, ...) \
-        [DDLog log : isAsynchronous                                     \
-             level : lvl                                                \
-              flag : flg                                                \
-           context : ctx                                                \
-              file : __FILE__                                           \
-          function : fnct                                               \
-              line : __LINE__                                           \
-               tag : atag                                               \
-            format : (frmt), ## __VA_ARGS__]
+#define LOG_MACRO(flg, ctx, atag, frmt, ...)                           \
+        [DDLog log: flg                                                \
+           context: ctx                                                \
+               tag: atag                                               \
+            format: (frmt), ## __VA_ARGS__]
+
+#define LOG_MACRO_ASYNC(flg, ctx, atag, frmt, ...)                     \
+        [DDLog asyncLog: flg                                           \
+                context: ctx                                           \
+                    tag: atag                                          \
+                 format: (frmt), ## __VA_ARGS__]
 
 /**
  * Define version of the macro that only execute if the log level is above the threshold.
@@ -68,23 +69,34 @@
  *
  * We also define shorthand versions for asynchronous and synchronous logging.
  **/
-#define LOG_MAYBE(async, lvl, flg, ctx, tag, fnct, frmt, ...) \
-        do { if(lvl & flg) LOG_MACRO(async, lvl, flg, ctx, tag, fnct, frmt, ##__VA_ARGS__); } while(0)
+#define LOG_MAYBE(lvl, flg, ctx, tag, frmt, ...) {                          \
+        if (lvl & flg) {                                                    \
+            LOG_MACRO(flg, ctx, tag, frmt, ##__VA_ARGS__);                  \
+        }                                                                   \
+    }
+
+#define LOG_MAYBE_ASYNC(lvl, flg, ctx, tag, frmt, ...) {                    \
+        if (lvl & flg) {                                                    \
+            LOG_MACRO_ASYNC(flg, ctx, tag, frmt, ##__VA_ARGS__);            \
+        }                                                                   \
+    }
 
 /**
  * Ready to use log macros with no context or tag.
  **/
-#define DDLogError(frmt, ...)   LOG_MAYBE(NO,                LOG_LEVEL_DEF, DDLogFlagError,   0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define DDLogWarn(frmt, ...)    LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagWarning, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define DDLogInfo(frmt, ...)    LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagInfo,    0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define DDLogDebug(frmt, ...)   LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagDebug,   0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define DDLogVerbose(frmt, ...) LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagVerbose, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+#define DDLogCritical(frmt, ...) LOG_MAYBE(      LOG_LEVEL_DEF, DDLogFlagCritical, 0, nil, frmt, ##__VA_ARGS__)
+#define DDLogError(frmt, ...)    LOG_MAYBE(      LOG_LEVEL_DEF, DDLogFlagError,    0, nil, frmt, ##__VA_ARGS__)
+#define DDLogWarn(frmt, ...)     LOG_MAYBE_ASYNC(LOG_LEVEL_DEF, DDLogFlagWarning,  0, nil, frmt, ##__VA_ARGS__)
+#define DDLogInfo(frmt, ...)     LOG_MAYBE_ASYNC(LOG_LEVEL_DEF, DDLogFlagInfo,     0, nil, frmt, ##__VA_ARGS__)
+#define DDLogDebug(frmt, ...)    LOG_MAYBE_ASYNC(LOG_LEVEL_DEF, DDLogFlagDebug,    0, nil, frmt, ##__VA_ARGS__)
+#define DDLogVerbose(frmt, ...)  LOG_MAYBE_ASYNC(LOG_LEVEL_DEF, DDLogFlagVerbose,  0, nil, frmt, ##__VA_ARGS__)
 
 /**
  * Ready to use log macros with no context.
  */
-#define DDTagLogError(atag, frmt, ...)    LOG_MAYBE(NO,                LOG_LEVEL_DEF, DDLogFlagError,    0, atag, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define DDTagLogWarn(atag, frmt, ...)     LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagWarning,  0, atag, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define DDTagLogInfo(atag, frmt, ...)     LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagInfo,     0, atag, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define DDTagLogDebug(atag, frmt, ...)    LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagDebug,    0, atag, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define DDTagLogVerbose(atag, frmt, ...)  LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagVerbose,  0, atag, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+#define DDTagLogCritical(atag, frmt, ...) LOG_MAYBE(      LOG_LEVEL_DEF, DDLogFlagCritical, 0, atag, frmt, ##__VA_ARGS__)
+#define DDTagLogError(atag, frmt, ...)    LOG_MAYBE(      LOG_LEVEL_DEF, DDLogFlagError,    0, atag, frmt, ##__VA_ARGS__)
+#define DDTagLogWarn(atag, frmt, ...)     LOG_MAYBE_ASYNC(LOG_LEVEL_DEF, DDLogFlagWarning,  0, atag, frmt, ##__VA_ARGS__)
+#define DDTagLogInfo(atag, frmt, ...)     LOG_MAYBE_ASYNC(LOG_LEVEL_DEF, DDLogFlagInfo,     0, atag, frmt, ##__VA_ARGS__)
+#define DDTagLogDebug(atag, frmt, ...)    LOG_MAYBE_ASYNC(LOG_LEVEL_DEF, DDLogFlagDebug,    0, atag, frmt, ##__VA_ARGS__)
+#define DDTagLogVerbose(atag, frmt, ...)  LOG_MAYBE_ASYNC(LOG_LEVEL_DEF, DDLogFlagVerbose,  0, atag, frmt, ##__VA_ARGS__)

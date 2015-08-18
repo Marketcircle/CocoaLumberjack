@@ -166,13 +166,13 @@
         for (NSString * name in names) {
             if ([logMessage->_queueLabel isEqualToString:name]) {
                 useQueueLabel = NO;
-                useThreadName = [logMessage->_threadName length] > 0;
+                useThreadName = [logMessage->_queueLabel length] > 0;
                 break;
             }
         }
     } else {
         useQueueLabel = NO;
-        useThreadName = [logMessage->_threadName length] > 0;
+        useThreadName = [logMessage->_queueLabel length] > 0;
     }
 
     if (useQueueLabel || useThreadName) {
@@ -182,7 +182,7 @@
         if (useQueueLabel) {
             fullLabel = logMessage->_queueLabel;
         } else {
-            fullLabel = logMessage->_threadName;
+            fullLabel = logMessage->_queueLabel;
         }
 
         OSSpinLockLock(&_lock);
@@ -197,7 +197,7 @@
             queueThreadLabel = fullLabel;
         }
     } else {
-        queueThreadLabel = logMessage->_threadID;
+        queueThreadLabel = logMessage->_queueLabel;
     }
 
     // Now use the thread label in the output

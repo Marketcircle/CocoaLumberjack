@@ -17,6 +17,8 @@
 
 @protocol DDLogger;
 
+extern const NSInteger DDASLLogCaptureContext;
+
 /**
  *  This class provides the ability to capture the ASL (Apple System Logs)
  */

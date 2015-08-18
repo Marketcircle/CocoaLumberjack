@@ -1285,18 +1285,7 @@ static DDTTYLogger *sharedInstance;
                 tsLen = (NSUInteger)MAX(MIN(24 - 1, len), 0);
             }
 
-            // Calculate thread ID
-            //
-            // How many characters do we need for the thread id?
-            // logMessage->machThreadID is of type mach_port_t, which is an unsigned int.
-            //
-            // 1 hex char = 4 bits
-            // 8 hex chars for 32 bit, plus ending '\0' = 9
-
-            char tid[9];
-            len = snprintf(tid, 9, "%s", [logMessage->_threadID cStringUsingEncoding:NSUTF8StringEncoding]);
-
-            size_t tidLen = (NSUInteger)MAX(MIN(9 - 1, len), 0);
+            len = (int)logMessage->_queueLabel.length;
 
             // Here is our format: "%s %s[%i:%s] %s", timestamp, appName, processID, threadID, logMsg
 
@@ -1340,8 +1329,8 @@ static DDTTYLogger *sharedInstance;
             v[7].iov_base = ":";
             v[7].iov_len = 1;
 
-            v[8].iov_base = tid;
-            v[8].iov_len = MIN((size_t)8, tidLen); // snprintf doesn't return what you might think
+            v[8].iov_base = (void*)logMessage->_queueLabel.UTF8String;
+            v[8].iov_len = len;
 
             v[9].iov_base = "] ";
             v[9].iov_len = 2;
