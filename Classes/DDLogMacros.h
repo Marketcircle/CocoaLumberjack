@@ -80,3 +80,11 @@
 #define DDLogDebug(frmt, ...)   LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagDebug,   0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
 #define DDLogVerbose(frmt, ...) LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagVerbose, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
 
+/**
+ * Ready to use log macros with no context.
+ */
+#define DDTagLogError(atag, frmt, ...)    LOG_MAYBE(NO,                LOG_LEVEL_DEF, DDLogFlagError,    0, atag, frmt, ##__VA_ARGS__)
+#define DDTagLogWarn(atag, frmt, ...)     LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagWarning,  0, atag, frmt, ##__VA_ARGS__)
+#define DDTagLogInfo(atag, frmt, ...)     LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagInfo,     0, atag, frmt, ##__VA_ARGS__)
+#define DDTagLogDebug(atag, frmt, ...)    LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagDebug,    0, atag, frmt, ##__VA_ARGS__)
+#define DDTagLogVerbose(atag, frmt, ...)  LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagVerbose,  0, atag, frmt, ##__VA_ARGS__)
