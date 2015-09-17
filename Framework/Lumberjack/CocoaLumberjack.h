@@ -6,7 +6,11 @@
 //
 //
 
+#ifdef __cplusplus
 #import <Foundation/Foundation.h>
+#else
+@import Foundation;
+#endif
 
 //! Project version number for CocoaLumberjack.
 FOUNDATION_EXPORT double CocoaLumberjackVersionNumber;

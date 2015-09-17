@@ -13,8 +13,13 @@
 //   to endorse or promote products derived from this software without specific
 //   prior written permission of Deusty, LLC.
 
-#import <Foundation/Foundation.h>
-#import <libkern/OSAtomic.h>
+#ifdef __cplusplus
+    #import <Foundation/Foundation.h>
+    #import <libkern/OSAtomic.h>
+#else
+    @import Foundation;
+    @import Darwin.libkern.OSAtomic;
+#endif
 
 // Disable legacy macros
 #ifndef DD_LEGACY_MACROS

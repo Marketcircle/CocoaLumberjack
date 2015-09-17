@@ -13,7 +13,11 @@
 //   to endorse or promote products derived from this software without specific
 //   prior written permission of Deusty, LLC.
 
+#ifdef __cplusplus
 #import <Foundation/Foundation.h>
+#else
+@import Foundation;
+#endif
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored  "-Wobjc-interface-ivars"

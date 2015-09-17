@@ -13,7 +13,11 @@
 //   to endorse or promote products derived from this software without specific
 //   prior written permission of Deusty, LLC.
 
-#import <Foundation/Foundation.h>
+#ifdef __cplusplus
+    #import <Foundation/Foundation.h>
+#else
+    @import Foundation;
+#endif
 
 // Disable legacy macros
 #ifndef DD_LEGACY_MACROS
