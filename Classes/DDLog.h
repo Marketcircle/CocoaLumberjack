@@ -13,7 +13,7 @@
 //   to endorse or promote products derived from this software without specific
 //   prior written permission of Deusty, LLC.
 
-#ifdef __cplusplus
+#if defined(__cplusplus) || !__has_feature(modules)
 #import <Foundation/Foundation.h>
 #else
 @import Foundation;

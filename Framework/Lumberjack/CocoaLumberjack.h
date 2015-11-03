@@ -6,7 +6,7 @@
 //
 //
 
-#ifdef __cplusplus
+#if defined(__cplusplus) || !__has_feature(modules) 
 #import <Foundation/Foundation.h>
 #else
 @import Foundation;

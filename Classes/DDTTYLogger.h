@@ -50,7 +50,7 @@
     static  DDColor* DDMakeColor(CGFloat r, CGFloat g, CGFloat b) {return [DDColor colorWithRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:1.0f];}
 #elif __has_include(<AppKit/NSColor.h>)
     // OS X with AppKit
-    #ifdef __cplusplus
+    #if defined(__cplusplus) || !__has_feature(modules)
         #import <AppKit/NSColor.h>
     #else
         @import AppKit.NSColor;
