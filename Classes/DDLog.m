@@ -820,6 +820,12 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy) {
 
 @implementation DDLogMessage
 
+- (instancetype)init {
+    self = [self initWithMessage:@"" flag:DDLogFlagVerbose context:0 tag:nil];
+    abort(); // invalid initializer
+    return self;
+}
+
 // Can we use DISPATCH_CURRENT_QUEUE_LABEL ?
 // Can we use dispatch_get_current_queue (without it crashing) ?
 //

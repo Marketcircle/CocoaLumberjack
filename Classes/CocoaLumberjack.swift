@@ -18,11 +18,11 @@ import CocoaLumberjack
 
 extension DDLogFlag {
     public static func fromLogLevel(logLevel: DDLogLevel) -> DDLogFlag {
-        return DDLogFlag(logLevel.rawValue)
+        return DDLogFlag(rawValue: logLevel.rawValue)
     }
 	
 	public init(_ logLevel: DDLogLevel) {
-		self = DDLogFlag(logLevel.rawValue)
+		self = DDLogFlag(rawValue: logLevel.rawValue)
 	}
     
     ///returns the log level, or the lowest equivalant.
@@ -31,15 +31,15 @@ extension DDLogFlag {
             return ourValid
         } else {
             let logFlag = self
-            if logFlag & .Verbose == .Verbose {
+            if logFlag.intersect(.Verbose) == .Verbose {
                 return .Verbose
-            } else if logFlag & .Debug == .Debug {
+            } else if logFlag.intersect(.Debug) == .Debug {
                 return .Debug
-            } else if logFlag & .Info == .Info {
+            } else if logFlag.intersect(.Info) == .Info {
                 return .Info
-            } else if logFlag & .Warning == .Warning {
+            } else if logFlag.intersect(.Warning) == .Warning {
                 return .Warning
-            } else if logFlag & .Error == .Error {
+            } else if logFlag.intersect(.Error) == .Error {
                 return .Error
             } else {
                 return .Off
@@ -54,7 +54,7 @@ public func resetDefaultDebugLevel() {
     defaultDebugLevel = DDLogLevel.Verbose
 }
 
-public func SwiftLogMacro(isAsynchronous: Bool, level: DDLogLevel, flag flg: DDLogFlag, context: Int = 0, file: StaticString = __FILE__, function: StaticString = __FUNCTION__, line: UInt = __LINE__, tag: AnyObject? = nil, @autoclosure(escaping) #string: () -> String) {
+public func SwiftLogMacro(isAsynchronous: Bool, level: DDLogLevel, flag flg: DDLogFlag, context: Int = 0, file: StaticString = __FILE__, function: StaticString = __FUNCTION__, line: UInt = __LINE__, tag: AnyObject? = nil, @autoclosure(escaping) string: () -> String) {
     if isAsynchronous {
         SwiftLogMacroAsync(level, flag: flg, tag: tag, string: string)
     }
@@ -63,7 +63,7 @@ public func SwiftLogMacro(isAsynchronous: Bool, level: DDLogLevel, flag flg: DDL
     }
 }
 
-public func SwiftLogMacroSync(level: DDLogLevel, flag flg: DDLogFlag, context: Int = 0, file: StaticString = __FILE__, line: UInt = __LINE__, tag: AnyObject? = nil, @autoclosure(escaping) #string: () -> String) {
+public func SwiftLogMacroSync(level: DDLogLevel, flag flg: DDLogFlag, context: Int = 0, file: StaticString = __FILE__, line: UInt = __LINE__, tag: AnyObject? = nil, @autoclosure(escaping) string: () -> String) {
     if level.rawValue & flg.rawValue != 0 {
         // Tell the DDLogMessage constructor to copy the C strings that get passed to it. 
         // Using string interpolation to prevent integer overflow warning when using StaticString.stringValue
@@ -72,7 +72,7 @@ public func SwiftLogMacroSync(level: DDLogLevel, flag flg: DDLogFlag, context: I
     }
 }
 
-public func SwiftLogMacroAsync(level: DDLogLevel, flag flg: DDLogFlag, context: Int = 0, file: StaticString = __FILE__, function: StaticString = __FUNCTION__, line: UInt = __LINE__, tag: AnyObject? = nil, @autoclosure(escaping) #string: () -> String) {
+public func SwiftLogMacroAsync(level: DDLogLevel, flag flg: DDLogFlag, context: Int = 0, file: StaticString = __FILE__, function: StaticString = __FUNCTION__, line: UInt = __LINE__, tag: AnyObject? = nil, @autoclosure(escaping) string: () -> String) {
     if level.rawValue & flg.rawValue != 0 {
         // Tell the DDLogMessage constructor to copy the C strings that get passed to it.
         // Using string interpolation to prevent integer overflow warning when using StaticString.stringValue
@@ -103,10 +103,4 @@ public func DDLogError(@autoclosure(escaping) logText: () -> String, level: DDLo
 
 public func DDLogCritical(@autoclosure(escaping) logText: () -> String, level: DDLogLevel = defaultDebugLevel, context: Int = 0, tag: AnyObject? = nil) {
     SwiftLogMacroSync(level, flag: .Critical, tag: tag, string: logText)
-}
-
-/// Analogous to the C preprocessor macro `THIS_FILE`.
-public func CurrentFileName(fileName: StaticString = __FILE__) -> String {
-    // Using string interpolation to prevent integer overflow warning when using StaticString.stringValue
-    return "\(fileName)".lastPathComponent.stringByDeletingPathExtension
 }
