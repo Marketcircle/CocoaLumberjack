@@ -47,7 +47,7 @@
         @import UIKit.UIColor;
     #endif
     typedef UIColor DDColor;
-    static  DDColor* DDMakeColor(CGFloat r, CGFloat g, CGFloat b) {return [DDColor colorWithRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:1.0f];}
+    static  DDColor* DDMakeColor(CGFloat r, CGFloat g, CGFloat b) {return [DDColor colorWithRed:(r/255.0) green:(g/255.0) blue:(b/255.0) alpha:1.0];}
 #elif __has_include(<AppKit/NSColor.h>)
     // OS X with AppKit
     #if defined(__cplusplus) || !__has_feature(modules)
@@ -56,12 +56,12 @@
         @import AppKit.NSColor;
     #endif
     typedef NSColor DDColor;
-    static DDColor* DDMakeColor(CGFloat r, CGFloat g, CGFloat b) {return [DDColor colorWithCalibratedRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:1.0f];}
+    static DDColor* DDMakeColor(CGFloat r, CGFloat g, CGFloat b) {return [DDColor colorWithCalibratedRed:(r/255.0) green:(g/255.0) blue:(b/255.0) alpha:1.0];}
 #else
     // OS X CLI
     #import "CLIColor.h"
     typedef CLIColor DDColor;
-    static  DDColor* DDMakeColor(CGFloat r, CGFloat g, CGFloat b) {return [DDColor colorWithCalibratedRed:(r/255.0f) green:(g/255.0f) blue:(b/255.0f) alpha:1.0f];}
+    static  DDColor* DDMakeColor(CGFloat r, CGFloat g, CGFloat b) {return [DDColor colorWithCalibratedRed:(r/255.0) green:(g/255.0) blue:(b/255.0) alpha:1.0];}
 #endif
 #pragma clang diagnostic pop
 

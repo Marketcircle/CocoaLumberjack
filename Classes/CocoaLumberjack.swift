@@ -54,7 +54,7 @@ public func resetDefaultDebugLevel() {
     defaultDebugLevel = DDLogLevel.Verbose
 }
 
-public func SwiftLogMacro(isAsynchronous: Bool, level: DDLogLevel, flag flg: DDLogFlag, context: Int = 0, file: StaticString = __FILE__, function: StaticString = __FUNCTION__, line: UInt = __LINE__, tag: AnyObject? = nil, @autoclosure(escaping) string: () -> String) {
+public func SwiftLogMacro(isAsynchronous: Bool, level: DDLogLevel, flag flg: DDLogFlag, context: Int = 0, file: StaticString = #file, function: StaticString = #function, line: UInt = #line, tag: AnyObject? = nil, @autoclosure(escaping) string: () -> String) {
     if isAsynchronous {
         SwiftLogMacroAsync(level, flag: flg, tag: tag, string: string)
     }
@@ -63,7 +63,7 @@ public func SwiftLogMacro(isAsynchronous: Bool, level: DDLogLevel, flag flg: DDL
     }
 }
 
-public func SwiftLogMacroSync(level: DDLogLevel, flag flg: DDLogFlag, context: Int = 0, file: StaticString = __FILE__, line: UInt = __LINE__, tag: AnyObject? = nil, @autoclosure(escaping) string: () -> String) {
+public func SwiftLogMacroSync(level: DDLogLevel, flag flg: DDLogFlag, context: Int = 0, file: StaticString = #file, line: UInt = #line, tag: AnyObject? = nil, @autoclosure(escaping) string: () -> String) {
     if level.rawValue & flg.rawValue != 0 {
         // Tell the DDLogMessage constructor to copy the C strings that get passed to it. 
         // Using string interpolation to prevent integer overflow warning when using StaticString.stringValue
@@ -72,7 +72,7 @@ public func SwiftLogMacroSync(level: DDLogLevel, flag flg: DDLogFlag, context: I
     }
 }
 
-public func SwiftLogMacroAsync(level: DDLogLevel, flag flg: DDLogFlag, context: Int = 0, file: StaticString = __FILE__, function: StaticString = __FUNCTION__, line: UInt = __LINE__, tag: AnyObject? = nil, @autoclosure(escaping) string: () -> String) {
+public func SwiftLogMacroAsync(level: DDLogLevel, flag flg: DDLogFlag, context: Int = 0, file: StaticString = #file, function: StaticString = #function, line: UInt = #line, tag: AnyObject? = nil, @autoclosure(escaping) string: () -> String) {
     if level.rawValue & flg.rawValue != 0 {
         // Tell the DDLogMessage constructor to copy the C strings that get passed to it.
         // Using string interpolation to prevent integer overflow warning when using StaticString.stringValue
